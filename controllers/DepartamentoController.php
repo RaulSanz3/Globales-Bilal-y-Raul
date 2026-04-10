@@ -7,6 +7,11 @@ class DepartamentoController{
     public function listar(){
         //instanciamos el modelo
         $depObj = new Departamento();
+
+        //guardamos el resultado en una variable
+        $todosDepartamentos = $depObj->listar();
+
+        include_once("views/departamentos/index.php");
     }
 }
 

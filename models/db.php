@@ -1,8 +1,8 @@
 <?php
-define("DB_HOST", "db");
+define("DB_HOST", "localhost");
 define("DB_NAME", "sistema_tickets");
 define("DB_USER", "root");
-define("DB_PASSWORD", "admin");
+define("DB_PASSWORD", "");
 
 class Db {
     private $host;
