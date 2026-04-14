@@ -1,37 +1,32 @@
 <?php
 
 //incluir la conexión con la base de datos
-include_once("db.php");
+// include_once("db.php");
 
-class Departamento {
+class Departamento
+{
     //guardamos la conexióna a la base de datos
     private $db;
-    private $nombre_tabla = "Departamentos";
+    // private $nombre_tabla = "Departamentos";
 
     //constructor
-    public function __construct(){
+    public function __construct()
+    {
         $this->db = Db::conectar();
     }
 
     //método para obtener datos
-    public function listar(){
-        //definimos la consula SQL
-        $sql = "SELECT * FROM " . $this->nombre_tabla;
+    public function listar()
+    {
+        try {
+            $sql = "SELECT * FROM Departamentos";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            die("Error en la consulta: " . $e->getMessage());
+        }
 
-        //preparamos la consulta
-        $stmt = $this->db->prepare($sql);
-
-        //ejecutamos la consulta en la base de datos
-        $stmt->execute();
-
-        //fetchALL(PDO::ASSOC) convierte las filas de la tabla en un arreglo asociativo de PHP
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
 }
-
-
-
-
-
 ?>

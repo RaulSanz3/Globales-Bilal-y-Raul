@@ -43,3 +43,6 @@ CREATE TABLE Tickets (
     FOREIGN KEY (id_empleado_tecnico) REFERENCES Empleados(id_emp),
     FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria)
 );
+
+
+INSERT INTO Departamentos (nombre_dep) VALUES ('Soporte Técnico'), ('Ventas'), ('Recursos Humanos');

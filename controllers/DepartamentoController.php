@@ -1,6 +1,6 @@
 <?php
 
-include_once("models/Departamento.php");
+require_once("models/Departamento.php");
 
 class DepartamentoController{
     //método principal para mostar la lista
@@ -11,7 +11,7 @@ class DepartamentoController{
         //guardamos el resultado en una variable
         $todosDepartamentos = $depObj->listar();
 
-        include_once("views/departamentos/index.php");
+        require_once("views/departamentos/index.php");
     }
 }
 
