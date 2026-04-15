@@ -1,12 +1,14 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
-require_once("db.php");
-
-require_once("controllers/DepartamentoController.php");
+require_once("models/db.php"); 
+/*require_once("controllers/DepartamentoController.php");
 
 $controller = new DepartamentoController();
+$controller->listar();*/
 
-$controller->listar();
+require_once("controllers/EmpleadoController.php");
+
+$controller = new EmpleadoController();
+$controller->listar_emp();
+
 ?>
