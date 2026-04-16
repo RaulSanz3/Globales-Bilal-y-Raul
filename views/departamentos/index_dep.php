@@ -11,12 +11,12 @@
 <body class="bg-light">
     <div class="container mt-5">
         <div class="card shadow">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header bg-primary text-white text-center">
                 <h1 class="h3 mb-0">Departamentos del sistema</h1>
             </div>
 
             <div class="card-body">
-                <table class="table table-hover table-striped mb-0">
+                <table class="table table-hover table-striped mb-0 text-center">
                     <thead class="table-dark">
                         <tr>
                             <th>ID</th>

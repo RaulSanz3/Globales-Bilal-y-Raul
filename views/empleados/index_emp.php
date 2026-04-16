@@ -11,10 +11,10 @@
     <!-- <? var_dump($todosEmpleados); ?> -->
     <div class="container mt-5">
     <div class="card-shadow">
-        <div class="card-header bg-success text-white">
-            <h1>Gestión de empleados</h1>
+        <div class="card-header bg-primary text-white">
+            <h1 class="text-center">Gestión de empleados</h1>
             <div class="card-body">
-                <table class="table table-hover ">
+                <table class="table table-hover text-center">
                     <thead class="table-dark">
                         <tr>
                             <th>ID</th>
@@ -32,8 +32,8 @@
                                 <td><? echo $emp['id_emp']; ?></td>
                                 <td><? echo $emp['nombre_completo'] ?></td>
                                 <td><? echo $emp['email'] ?></td>
-                                <td ><? echo $emp['id_dep'] ?></td>
-                                <td >
+                                <td><? echo $emp['id_dep'] ?></td>
+                                <td>
                                     <!-- <? echo $emp['nombre_dep'] ?> -->
                                     <?= !empty($emp['nombre_dep']) ? $emp['nombre_dep'] : 'Sin asignar' ?>
                                 </td>
@@ -42,7 +42,7 @@
                             endforeach;  
                         else: ?>
                             <tr>
-                                <td colspan="4" class="text-center p-4">No hay empleados.</td>
+                                <td colspan="5" class="text-center p-5">No hay empleados.</td>
                             </tr>
                         <?
                         endif;?>
