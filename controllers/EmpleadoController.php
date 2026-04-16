@@ -7,7 +7,7 @@ class EmpleadoController{
     public function listar_emp(){
         $empObj = new Empleado();
 
-        $todosEmpleados = $empObj->listar_empleados(); //la variable viene del modelo para obetener los datos de la base de datos
+        $todosEmpleados = $empObj->listar_empleados(); //la función viene del modelo para obtener los datos de la base de datos
 
         include_once("views/empleados/index_emp.php");
     }
