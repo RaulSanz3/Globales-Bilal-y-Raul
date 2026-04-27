@@ -1,5 +1,7 @@
 <?php
 
+require_once(__DIR__ . '/db.php');
+
 class Empleado{
 
     private $db;
@@ -25,10 +27,6 @@ class Empleado{
 
     }
 
-//GHGFJH
-
 }
-
-
 
 ?>

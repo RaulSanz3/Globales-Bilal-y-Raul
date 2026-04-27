@@ -1,5 +1,7 @@
 <?php
 
+require_once(__DIR__ . '/db.php'); 
+
 class Categoria{
     //guardamos la conexión de la base de datos
     private $db;

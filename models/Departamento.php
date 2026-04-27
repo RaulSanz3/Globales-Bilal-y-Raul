@@ -7,7 +7,6 @@ class Departamento
 {
     //guardamos la conexióna a la base de datos
     private $db;
-    // private $nombre_tabla = "Departamentos";
 
     //constructor
     public function __construct()
