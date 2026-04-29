@@ -36,34 +36,48 @@
                         <tbody>
                             <?php
                             $num = 1;
-                            foreach ($todosTickets as $t): ?>
-                                <tr>
+                            foreach ($todosTickets as $t):
+                                //comprobamos si el ticket está cerrado
+                                $esCerrado = (strtolower($t['estado']) == 'cerrado');
+                            ?>
+                                <!-- Si está cerrado, le bajamos un poco la opacidad a toda la fila -->
+                                <tr class="<?php echo $esCerrado ? 'text-muted opacity-75' : ''; ?>">
+
                                     <td class="ps-3 fw-bold text-primary"><?php echo $num++; ?></td>
-
                                     <td class="text-muted small">#<?php echo $t['id_ticket']; ?></td>
-
                                     <td class="fw-semibold"><?php echo $t['titulo']; ?></td>
 
-                                    <td>
-                                        <span class="badge bg-info text-dark">
-                                            <?php echo $t['estado']; ?>
-                                        </span>
+                                    <td class="<?php echo $esCerrado ? 'text-white fw-bold' : ''; ?>">
+                                        <?php if ($esCerrado): ?>
+
+                                            <span class="badge bg-danger">Cerrado</span>
+                                        <?php else: ?>
+                                            <span class="badge bg-info text-dark"><?php echo $t['estado']; ?></span>
+                                        <?php endif; ?>
                                     </td>
 
-                                    <td class="text-truncate" style="max-width: 200px;">
-                                        <?php echo $t['descripcion']; ?>
-                                    </td>
-
-                                    <td class="small text-secondary">
-                                        <?php echo date('d/m/Y H:i', strtotime($t['fecha_creacion'])); ?>
-                                    </td>
-
+                                    <td class="text-truncate" style="max-width: 200px;"><?php echo $t['descripcion']; ?></td>
+                                    <td class="small text-secondary"><?php echo date('d/m/Y H:i', strtotime($t['fecha_creacion'])); ?></td>
                                     <td><?php echo $t['id_cliente']; ?></td>
 
                                     <td>
-                                        <?php echo $t['id_empleado_tecnico'] ?: '<span class="text-danger italic">Sin asignar</span>'; ?>
-                                    </td>
+                                        <?php if (empty($t['id_empleado_tecnico'])): ?>
+                                            <a href="index.php?action=asignar_tecnico&id=<?php echo $t['id_ticket']; ?>" class="btn btn-warning btn-sm shadow-sm">
+                                                Asignar Técnico
+                                            </a>
+                                        <?php else: ?>
+                                            <span class="fw-bold text-success d-block mb-1">Técnico: <?php echo $t['id_empleado_tecnico']; ?></span>
 
+                                            <!-- botón para cerrar el ticket (solo sale si no está cerrado ya) -->
+                                            <?php if (!$esCerrado): ?>
+                                                <a href="index.php?action=cerrar_ticket&id=<?php echo $t['id_ticket']; ?>"
+                                                    class="btn btn-dark btn-sm shadow-sm"
+                                                    onclick="return confirm('¿Estás seguro de marcar este ticket como finalizado?');">
+                                                    ✓ Terminar
+                                                </a>
+                                            <?php endif; ?>
+
+                                        <?php endif; ?>
                                     <td>
                                         <span class="badge border text-dark bg-light">
                                             <?php echo $t['id_categoria']; ?>

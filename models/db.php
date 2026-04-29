@@ -14,8 +14,9 @@ class Db {
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
             return $pdo;
+            
         } catch (PDOException $e) {
-            // Si algo falla, ahora SÍ nos lo dirá en pantalla
+            //si algo falla, nos lo dirá en pantalla
             die("<h2 style='color:red;'>Error de Base de Datos: " . $e->getMessage() . "</h2>");
         }
     }

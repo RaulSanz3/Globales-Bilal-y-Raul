@@ -81,7 +81,7 @@
                             require_once("controllers/TicketController.php");
                             (new TicketController())->mostrar_formulario();
                             break;
-                            
+
                         case 'guardar_ticket':
                             require_once("controllers/TicketController.php");
                             (new TicketController())->guardar();
@@ -91,7 +91,7 @@
                             require_once("controllers/TicketController.php");
                             (new TicketController())->listar_tick();
                             break;
-                            
+
                         case 'ver_empleados':
                             require_once("controllers/EmpleadoController.php");
                             (new EmpleadoController())->listar_emp();
@@ -107,17 +107,32 @@
                         case 'eliminar_cliente':
                             require_once("controllers/ClientesController.php");
                             (new ClientesController())->eliminar();
-                             break;
+                            break;
 
-                            case 'nuevo_cliente':
-                             require_once("controllers/ClientesController.php");
+                        case 'nuevo_cliente':
+                            require_once("controllers/ClientesController.php");
                             (new ClientesController())->mostrarformulario_cliente();
                             break;
 
-                            case 'guardar_cliente':
-                                require_once("controllers/ClientesController.php");
-                                (new ClientesController())->guardar();
-                                break;
+                        case 'guardar_cliente':
+                            require_once("controllers/ClientesController.php");
+                            (new ClientesController())->guardar();
+                            break;
+
+                        case 'asignar_tecnico':
+                            require_once("controllers/TicketController.php");
+                            (new TicketController())->pantalla_asignar();
+                            break;
+
+                        case 'guardar_asignacion':
+                            require_once("controllers/TicketController.php");
+                            (new TicketController())->guardar_asignacion();
+                            break;
+
+                        case 'cerrar_ticket':
+                            require_once("controllers/TicketController.php");
+                            (new TicketController())->marcar_cerrado();
+                            break;
 
                         default:
                             echo '<div class="alert alert-info text-center">Selecciona una opción arriba para empezar.</div>';
@@ -136,4 +151,5 @@
         </div>
     </div>
 </body>
+
 </html>

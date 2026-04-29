@@ -2,9 +2,9 @@
 
 require_once("models/Departamento.php");
 
-class DepartamentoController{
+class DepartamentoController {
     //método principal para mostar la lista
-    public function listar(){
+    public function listar() {
         //instanciamos el modelo
         $depObj = new Departamento();
 

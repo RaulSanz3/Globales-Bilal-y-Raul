@@ -31,7 +31,7 @@
                     </thead>
                     <tbody>
                         <?php
-                        // Verificamos si la variable existe y tiene datos
+                        //se verifica si la variable existe y tiene datos
                         if (!empty($listaClientes)) {
                             foreach ($listaClientes as $c):
                         ?>

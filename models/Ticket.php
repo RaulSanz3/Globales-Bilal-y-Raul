@@ -13,7 +13,6 @@ class Ticket
 
     public function listar_ticket()
     {
-        // Usamos * para evitar errores de nombres de columnas por ahora
         $sql = "SELECT Tickets.*, Clientes.nombre_cliente, Empleados.nombre_completo, Categorias.nom_cat 
                     FROM Tickets
                         LEFT JOIN Clientes on Tickets.id_cliente = Clientes.id_cliente
@@ -30,13 +29,12 @@ class Ticket
     {
 
         $fecha_creacion = date('Y-m-d H:i:s');
-        // Hacemos el INSERT. Ponemos el estado 'Abierto' por defecto al crearlo.
         $sql = "INSERT INTO Tickets (titulo, estado, descripcion, fecha_creacion, id_cliente, id_empleado_tecnico, id_categoria) 
                 VALUES (?, 'Abierto', ?, ?, ?, ?, ?)";
 
         $stmt = $this->db->prepare($sql);
 
-        // Ejecutamos pasando los datos limpios (así evitamos hackeos)
+        //ejecutamos pasando los datos
         return $stmt->execute([
             $titulo,
             $descripcion,
@@ -45,5 +43,19 @@ class Ticket
             $id_empleado,
             $id_categoria
         ]);
+    }
+
+    public function cerrar_ticket($id_ticket) {
+        $sql = "UPDATE Tickets SET estado = 'Cerrado' WHERE id_ticket = ?";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([$id_ticket]);
+    }
+
+    public function asignar_empleado($id_ticket, $id_empleado)
+    {
+        $sql = "UPDATE Tickets SET id_empleado_tecnico = ? WHERE id_ticket = ?";
+        $stmt = $this->db->prepare($sql);
+        // Ojo al orden: primero el empleado (que va al primer ?), luego el ticket (al segundo ?)
+        return $stmt->execute([$id_empleado, $id_ticket]);
     }
 }

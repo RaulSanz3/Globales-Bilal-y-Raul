@@ -1,7 +1,5 @@
 <?php
 
-//incluir la conexión con la base de datos
-// include_once("db.php");
 
 class Departamento
 {

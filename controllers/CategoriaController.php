@@ -2,8 +2,8 @@
 
 include_once("models/Categoria.php");
 
-class CategoriaController{
-    public function listar_cat(){
+class CategoriaController {
+    public function listar_cat() {
         
         $catObj = new Categoria();
 
