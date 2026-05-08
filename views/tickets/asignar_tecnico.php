@@ -6,7 +6,7 @@
         <div class="card-body">
             <form action="index.php?action=guardar_asignacion" method="POST">
                 
-                <!-- ocultamos el ID para que el Controlador sepa qué ticket actualizar -->
+                <!-- ocultamos el ID para que el Controlador sepa que ticket actualizar -->
                 <input type="hidden" name="id_ticket" value="<?php echo $id_ticket; ?>">
 
                 <div class="mb-3">
@@ -14,7 +14,7 @@
                     <select name="id_empleado" class="form-select" required>
                         <option value="">-- Elige un técnico --</option>
                         <?php foreach($empleados as $emp): ?>
-                            <!-- Ajusta 'id_empleado' y 'nombre' según las columnas de tu tabla de personal -->
+                            <!-- Ajusta 'id_empleado' y 'nombre' según las columnas de la tabla de personal -->
                             <option value="<?php echo $emp['id_emp']; ?>">
                                 <?php echo $emp['nombre_completo']; ?>
                             </option>

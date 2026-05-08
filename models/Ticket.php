@@ -11,16 +11,26 @@ class Ticket
         $this->db = Db::conectar();
     }
 
-    public function listar_ticket()
+    public function listar_ticket($id_usuario, $rol, $tipo)
     {
-        $sql = "SELECT Tickets.*, Clientes.nombre_cliente, Empleados.nombre_completo, Categorias.nom_cat 
-                    FROM Tickets
-                        LEFT JOIN Clientes on Tickets.id_cliente = Clientes.id_cliente
-                            LEFT JOIN Empleados on Tickets.id_empleado_tecnico = Empleados.id_emp
-                                LEFT JOIN Categorias on Tickets.id_categoria = Categorias.id_categoria";
-
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
+        if ($rol === 'admin') {
+            //el admin puede ver todos los tickets
+            $sql = "SELECT * FROM Tickets ORDER BY id_ticket DESC";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+            
+        } elseif ($tipo === 'empleado') {
+            //el empelado ve solo los que le han asignado
+            $sql = "SELECT * FROM Tickets WHERE id_empleado_tecnico = ? ORDER BY id_ticket DESC";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([$id_usuario]);
+            
+        } else {
+            //el cliente ve solo los que él mismo ha creado
+            $sql = "SELECT * FROM Tickets WHERE id_cliente = ? ORDER BY id_ticket DESC";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([$id_usuario]);
+        }
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -45,17 +55,19 @@ class Ticket
         ]);
     }
 
+
     public function cerrar_ticket($id_ticket) {
         $sql = "UPDATE Tickets SET estado = 'Cerrado' WHERE id_ticket = ?";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([$id_ticket]);
     }
 
+    
     public function asignar_empleado($id_ticket, $id_empleado)
     {
         $sql = "UPDATE Tickets SET id_empleado_tecnico = ? WHERE id_ticket = ?";
         $stmt = $this->db->prepare($sql);
-        // Ojo al orden: primero el empleado (que va al primer ?), luego el ticket (al segundo ?)
+        
         return $stmt->execute([$id_empleado, $id_ticket]);
     }
 }

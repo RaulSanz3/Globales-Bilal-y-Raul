@@ -40,7 +40,8 @@
                                 //comprobamos si el ticket está cerrado
                                 $esCerrado = (strtolower($t['estado']) == 'cerrado');
                             ?>
-                                <!-- Si está cerrado, le bajamos un poco la opacidad a toda la fila -->
+                                <!-- si está cerrado, le bajamos un poco la opacidad a toda la fila 
+                                 para que se muestre la intención de no estar ya disponible -->
                                 <tr class="<?php echo $esCerrado ? 'text-muted opacity-75' : ''; ?>">
 
                                     <td class="ps-3 fw-bold text-primary"><?php echo $num++; ?></td>
@@ -62,21 +63,31 @@
 
                                     <td>
                                         <?php if (empty($t['id_empleado_tecnico'])): ?>
+
+                                            <?php if (isset($_SESSION['usuario_rol']) && $_SESSION['usuario_rol'] === 'admin'): ?>                        
                                             <a href="index.php?action=asignar_tecnico&id=<?php echo $t['id_ticket']; ?>" class="btn btn-warning btn-sm shadow-sm">
                                                 Asignar Técnico
                                             </a>
-                                        <?php else: ?>
-                                            <span class="fw-bold text-success d-block mb-1">Técnico: <?php echo $t['id_empleado_tecnico']; ?></span>
-
-                                            <!-- botón para cerrar el ticket (solo sale si no está cerrado ya) -->
-                                            <?php if (!$esCerrado): ?>
-                                                <a href="index.php?action=cerrar_ticket&id=<?php echo $t['id_ticket']; ?>"
-                                                    class="btn btn-dark btn-sm shadow-sm"
-                                                    onclick="return confirm('¿Estás seguro de marcar este ticket como finalizado?');">
-                                                    ✓ Terminar
-                                                </a>
+                                            <?php else: ?>
+                                                <span class="badge bg-secondary">Sin asignar</span>
                                             <?php endif; ?>
 
+                                        <?php else: ?>
+
+                                            <span class="fw-bold text-success d-block mb-1">Técnico: <?php echo $t['id_empleado_tecnico']; ?></span>
+                                            
+                                            <!-- botón para cerrar el ticket (solo sale si no está cerrado ya) -->
+                                            <?php if (!$esCerrado): ?>
+                                                <?php if ($_SESSION['usuario_tipo'] === 'empleado' || (isset($_SESSION['usuario_rol']) && $_SESSION['usuario_rol'] === 'admin')): ?>
+                                                    <a href="index.php?action=cerrar_ticket&id=<?php echo $t['id_ticket']; ?>"
+                                                        class="btn btn-dark btn-sm shadow-sm"
+                                                        onclick="return confirm('¿Estás seguro de marcar este ticket como finalizado?');">
+                                                        ✓ Terminar
+                                                    </a>
+                                                <?php else: ?>
+                                                    <span class="badge bg-info">En proceso</span>
+                                                <?php endif; ?>
+                                            <?php endif; ?>
                                         <?php endif; ?>
                                     <td>
                                         <span class="badge border text-dark bg-light">

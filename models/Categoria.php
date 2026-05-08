@@ -12,7 +12,7 @@ class Categoria{
     }
 
     public function listar_categoria(){
-        //seleccionar todos los datos de la tabla
+        //seleccionamos todos los datos de la tabla
         $sql = "SELECT * FROM Categorias";
 
         //preparamos y ejecutamos la variable

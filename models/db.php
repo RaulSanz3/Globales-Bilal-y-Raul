@@ -7,7 +7,6 @@ define("DB_PASSWORD","+fSS97a@LKUV#VY");
 class Db {
     public static function conectar() {
         try {
-            // 2. Arreglado el espacio del charset
             $dns = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8';
             $pdo = new PDO($dns, DB_USER, DB_PASSWORD);
             

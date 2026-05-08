@@ -1,7 +1,5 @@
 <?php
-// controllers/TicketController.php
 
-// 1. Cargamos el modelo (Cuidado con las mayúsculas/minúsculas)
 include_once("models/Ticket.php");
 
 
@@ -13,8 +11,13 @@ class TicketController {
         //creamos el objeto Ticket
         $tickObj = new Ticket();
 
+        //recogemos los datos
+        $id_usuario = $_SESSION['usuario_id'];
+        $rol = $_SESSION['usuario_rol'] ?? '';
+        $tipo = $_SESSION['usuario_tipo'] ?? '';
+
         //obtenemos los datos
-        $todosTickets = $tickObj->listar_ticket();
+        $todosTickets = $tickObj->listar_ticket($id_usuario, $rol, $tipo);
 
         //cargamos la vista pasándole la variable
         include_once("views/tickets/ticket_view.php");
@@ -29,9 +32,6 @@ class TicketController {
 
         $clientes = $clienteModelo->listar();
         $categorias = $categoriaModelo->listar_categoria();
-
-        // var_dump($clientes);
-        // die();
 
         include_once("views/tickets/formulario_ticket.php");
     }
@@ -53,7 +53,7 @@ class TicketController {
         $guardado = $tickObj->crear_ticket($titulo, $id_cliente, $id_categoria, $descripcion, $id_empleado_asignado);
 
 
-        //si se guarda bien se manda automáticamente a la pantalla de "Ver Tickets"
+        //si se guarda bien se manda automáticamente a la pantalla de "ver tickets"
         if ($guardado) {
             header("Location: index.php?action=ver_tickets");
             exit();
@@ -62,7 +62,7 @@ class TicketController {
         }
     }
 
-    //muestra la pantalla para elegir técnico
+    //muestra la pantalla para elegir el técnico
     public function pantalla_asignar() {
         $id_ticket = $_GET['id'] ?? null;
 
@@ -87,10 +87,8 @@ class TicketController {
         require_once("models/Ticket.php");
         $tickObj = new Ticket();
 
-        // Llamamos a la función mágica que haremos en el Paso 4
         $tickObj->asignar_empleado($id_ticket, $id_empleado);
 
-        // Volvemos a la lista
         header("Location: index.php?action=ver_tickets");
         exit();
     }
@@ -104,7 +102,6 @@ class TicketController {
             $tickObj->cerrar_ticket($id_ticket);
         }
         
-        // Volvemos a la lista para ver el cambio instantáneo
         header("Location: index.php?action=ver_tickets");
         exit();
     }

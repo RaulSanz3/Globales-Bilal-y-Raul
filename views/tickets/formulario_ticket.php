@@ -13,17 +13,30 @@
 
 
             <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label class="form-label fw-bold">Cliente</label>
-                    <select name="id_cliente" class="form-select" required>
-                        <option value="">Selecciona al cliente...</option>
+                <?php if (isset($_SESSION['usuario_rol']) && $_SESSION['usuario_rol'] === 'admin'): ?>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Cliente</label>
+                        <select name="id_cliente" class="form-select" required>
+                            <option value="">Selecciona al cliente...</option>
 
-                        <?php foreach ($clientes as $c): ?>
-                            <option value="<?= $c['id_cliente'] ?>"><?= $c['nombre_cliente'] ?></option>
-                        <?php endforeach; ?>
+                            <?php foreach ($clientes as $c): ?>
+                                <option value="<?= $c['id_cliente'] ?>"><?= $c['nombre_cliente'] ?></option>
+                            <?php endforeach; ?>
 
-                    </select>
-                </div>
+                        </select>
+                    </div>
+
+                <?php else: ?>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Remitente</label>
+                        <input type="hidden" name="id_cliente" value="<?= $_SESSION['usuario_id'] ?>">
+                        
+                        <input type="text" class="form-control text-muted bg-light" value="<?= $_SESSION['usuario_nombre'] ?>" disabled>
+                        <small class="text-muted">El ticket se registrará automáticamente a tu nombre.</small>
+                    </div>
+
+                <?php endif; ?>
 
 
 

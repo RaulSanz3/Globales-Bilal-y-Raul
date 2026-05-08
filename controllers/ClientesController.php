@@ -8,7 +8,7 @@ class ClientesController {
         $clienteModel = new Cliente();
         $listaClientes = $clienteModel->listar();
 
-        // Carga la vista de clientes
+        //carga la vista de los clientes
         require_once("views/clientes/clientes_view.php");
     }
 
@@ -55,7 +55,7 @@ class ClientesController {
             $clienteObj->marcar_como_borrado($id);
         }
 
-        //al terminar, volvemos a la lista de clientes
+        //al terminar volvemos a la lista de clientes
         header("Location: index.php?action=ver_clientes");
         exit();
     }
